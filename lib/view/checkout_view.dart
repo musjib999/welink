@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shopzler/view/payment_view.dart';
 
 import '../core/viewmodel/cart_viewmodel.dart';
 import '../core/viewmodel/checkout_viewmodel.dart';
@@ -9,8 +10,16 @@ import '../constants.dart';
 import 'widgets/custom_text.dart';
 import 'widgets/custom_textFormField.dart';
 
-class CheckoutView extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+class CheckoutView extends StatefulWidget {
+  CheckoutView(this.totalAmount);
+  final String totalAmount;
+
+  @override
+  State<CheckoutView> createState() => _CheckoutViewState();
+}
+
+class _CheckoutViewState extends State<CheckoutView> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +87,7 @@ class CheckoutView extends StatelessWidget {
                         ),
                         CustomTextFormField(
                           title: 'City',
-                          hintText: 'Wuse',
+                          hintText: 'Sana\'a',
                           validatorFn: (value) {
                             if (value!.isEmpty || value.length < 4)
                               return 'Please enter valid city name.';
@@ -95,7 +104,7 @@ class CheckoutView extends StatelessWidget {
                             Expanded(
                               child: CustomTextFormField(
                                 title: 'State',
-                                hintText: 'Abuja',
+                                hintText: 'Sana\'a',
                                 validatorFn: (value) {
                                   if (value!.isEmpty || value.length < 4)
                                     return 'Please enter valid state name.';
@@ -111,7 +120,7 @@ class CheckoutView extends StatelessWidget {
                             Expanded(
                               child: CustomTextFormField(
                                 title: 'Country',
-                                hintText: 'Nigeria',
+                                hintText: 'Yemen',
                                 validatorFn: (value) {
                                   if (value!.isEmpty || value.length < 4)
                                     return 'Please enter valid city name.';
@@ -128,7 +137,7 @@ class CheckoutView extends StatelessWidget {
                         ),
                         CustomTextFormField(
                           title: 'Phone Number',
-                          hintText: '+23412345678',
+                          hintText: '+96712345678',
                           keyboardType: TextInputType.phone,
                           validatorFn: (value) {
                             if (value!.isEmpty || value.length < 10)
@@ -146,7 +155,7 @@ class CheckoutView extends StatelessWidget {
                           () async {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-                              await controller.addCheckoutToFireStore();
+
                               Get.dialog(
                                 AlertDialog(
                                   content: SingleChildScrollView(
@@ -169,9 +178,17 @@ class CheckoutView extends StatelessWidget {
                                           height: 40.h,
                                         ),
                                         CustomButton(
-                                          'Done',
+                                          'Pay Later',
                                           () {
                                             Get.back();
+                                          },
+                                        ),
+                                        CustomButton(
+                                          'Pay Now',
+                                          () {
+                                            Get.to(
+                                              PaymentView(widget.totalAmount),
+                                            );
                                           },
                                         ),
                                       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shopzler/constants.dart';
 
 import '../../core/viewmodel/auth_viewmodel.dart';
 import '../../core/viewmodel/profile_viewmodel.dart';
@@ -88,6 +89,13 @@ class ProfileView extends StatelessWidget {
                           Get.to(NotificationsView());
                         },
                       ),
+                      MyCustomListTile(
+                        iconName: '7',
+                        title: 'Contact Us',
+                        onTapFn: () {
+                          // Get.to(CardsView());
+                        },
+                      ),
                       CustomListTile(
                         iconName: '6',
                         title: 'Log Out',
@@ -125,6 +133,51 @@ class CustomListTile extends StatelessWidget {
             'assets/images/icons/menu_icons/$iconName.png',
             height: 40.h,
             width: 40.h,
+          ),
+          title: CustomText(
+            text: title,
+            fontSize: 18,
+          ),
+          trailing: title == 'Log Out'
+              ? null
+              : Icon(
+                  Icons.navigate_next,
+                  color: Colors.black,
+                ),
+        ),
+        SizedBox(
+          height: 20.h,
+        ),
+      ],
+    );
+  }
+}
+
+class MyCustomListTile extends StatelessWidget {
+  final String iconName;
+  final String title;
+  final VoidCallback onTapFn;
+
+  const MyCustomListTile({
+    required this.iconName,
+    required this.title,
+    required this.onTapFn,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          onTap: onTapFn,
+          leading: Container(
+            padding: EdgeInsets.all(8),
+            color: primaryColor.withOpacity(0.10),
+            child: Image.asset(
+              'assets/images/icons/menu_icons/$iconName.png',
+              height: 20.h,
+              width: 20.h,
+            ),
           ),
           title: CustomText(
             text: title,

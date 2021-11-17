@@ -46,7 +46,7 @@ class CheckoutViewModel extends GetxController {
       totalPrice: Get.find<CartViewModel>().totalPrice.toString(),
       date: DateFormat.yMMMd().add_jm().format(DateTime.now()),
     ));
-    Get.find<CartViewModel>().removeAllProducts();
+    // Get.find<CartViewModel>().removeAllProducts();
     Get.back();
     _getCheckoutsFromFireStore();
   }

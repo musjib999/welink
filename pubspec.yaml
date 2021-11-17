@@ -24,6 +24,7 @@ dependencies:
   firebase_storage: ^10.0.3
   intl: ^0.17.0
   connectivity: ^3.0.6
+  flutter_paystack: ^1.0.5+1
 
 dev_dependencies:
   flutter_test:
